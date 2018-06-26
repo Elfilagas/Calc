@@ -39,10 +39,12 @@ def calc(key):
                 calc_entry.insert(0, "-")
         except IndexError:
             pass
+    #Удаление символа
     elif key == "DEL":
         if "=" in calc_entry.get():
             calc_entry.delete(0, END)
         calc_entry.delete(len(calc_entry.get()) - 1, END)
+    #Добавление скобок (упрощенное - без вложенных скобок)
     elif key == "()":
         if "=" in calc_entry.get():
             calc_entry.delete(0, END)
