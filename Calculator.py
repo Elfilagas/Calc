@@ -4,13 +4,14 @@ from tkinter import ttk
 
 root = Tk()
 root.title("Калькулятор")
+root.resizable(0, 0)
 
 #Логика калькулятора
 def calc(key):
     global memory
     if key == "=":
         #Исключаем написание букв
-        str1 = "-+0123456789.*/"
+        str1 = "-+0123456789.*/()"
         if calc_entry.get()[0] not in str1:
             calc_entry.insert(END, "Первый символ не число!")
             messagebox.showerror("Ошибка!", "Введено не число.")
@@ -18,9 +19,12 @@ def calc(key):
         try:
             result = eval(calc_entry.get())
             calc_entry.insert(END, "=" + str(result))
+        except ZeroDivisionError:
+            calc_entry.insert(END, "= Бесконечность")
         except:
-            calc_entry.insert(ENoDefaultRoot, "Ошибка!")
+            calc_entry.insert(END, "Ошибка!")
             messagebox.showerror("Ошибка!", "Проверьте правильность данных")
+        
     #Очистить поле
     elif key == "C":
         calc_entry.delete(0, END)
@@ -39,6 +43,14 @@ def calc(key):
         if "=" in calc_entry.get():
             calc_entry.delete(0, END)
         calc_entry.delete(len(calc_entry.get()) - 1, END)
+    elif key == "()":
+        if "=" in calc_entry.get():
+            calc_entry.delete(0, END)
+            calc_entry.insert(END, "(")
+        elif "(" in calc_entry.get():
+            calc_entry.insert(END, ")")
+        else:
+            calc_entry.insert(END, "(")
     else:
         if "=" in calc_entry.get():
             calc_entry.delete(0, END)
@@ -49,7 +61,7 @@ bttn_list = [
     "7", "8", "9", "+", "-",
     "4", "5", "6", "*", "/",
     "1", "2", "3", "-/+", "=",
-    "0", ".", "C", "DEL", "%"
+    "0", ".", "C", "DEL", "()"
 ]
 r = 1
 c = 0
