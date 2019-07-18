@@ -1,28 +1,28 @@
---Поиск параметров
+--РџРѕРёСЃРє
 
 select * from articles where art_id=795035
-select * from doclist where doc_id=449619 'doc_id = Инв. номер
+select * from doclist where doc_id=449619 'doc_id = РРЅРІ. РЅРѕРјРµСЂ
 select * from pc where Proj_AID=850925
 
---Замена обозначения объекта по artid
+--Р—Р°РјРµРЅР° РѕР±РѕР·РЅР°С‡РЅРёСЏ РїРѕ artid
 
-update top(10) articles set designatio='ЖКЕБ.686468.001-46' where art_id=1018253 or art_id=-1018253
+update top(10) articles set designatio='Р–РљР•Р‘.686468.001-46' where art_id=1018253 or art_id=-1018253
 
---По аналогии имя документа
+--РџРѕ Р°РЅР°Р»РѕРіРёРё РёРјСЏ РґРѕРєСѓРјРµРЅС‚Р°
 
-update top(10) doclist set NAME='ТЕСТБЧ' where doc_id=505037 or art_id=-505037
+update top(10) doclist set NAME='РўР•РЎРўР‘Р§' where doc_id=505037 or art_id=-505037
 
---Получение DOC_ID
+--РџРѕР»СѓС‡РµРЅРёРµ DOC_ID
 select DOC_ID from DOCLIST
-where FILENAME='ЖКЕБ.745442.603.idw' and DOC_ID>0
+where FILENAME='Р–РљР•Р‘.745442.603.idw' and DOC_ID>0
 
 
---Отбор из нескольких таблиц
+--Join
 select c.DESIGNATIO, a.VER_CODE, a.BIRTHDAY, b.FULLNAME, a.REVDOC_ID from RC a 
 join USERS b on (b.USER_ID=a.DESIGNERID) 
 join DOCLIST c on (c.DOC_ID=a.REVDOC_ID) 
-where a.FILENAME='ЖКЕБ.745442.603.idw'
-order by cast(a.VER_CODE as int) DESC  --здесь изменение типа переменной
+where a.FILENAME='Г†ГЉГ…ГЃ.745442.603.idw'
+order by cast(a.VER_CODE as int) DESC  --Р·РґРµСЃСЊ РёР·РјРµРЅРµРЅРёРµ С‚РёРїР° РїРµСЂРµРјРµРЅРЅРѕР№
 
 select c.DESIGNATIO, a.VER_CODE, a.BIRTHDAY, b.FULLNAME, a.REVDOC_ID, a.VERSION_ID from RC a
 join USERS b on (b.USER_ID=a.DESIGNERID)
@@ -37,22 +37,22 @@ select * from DOCLIST where DOC_ID=503116
 
 select a.VERSION_ID, b.DOC_ID from RC a
 join DOCLIST b on (b.FILENAME=a.FILENAME)
-where a.FILENAME='ТЕСТ.123456.123 ЭСБ.idw' and b.DOC_ID > 0
+where a.FILENAME='РўР•РЎРў.123456.123 Р­РЎР‘.idw' and b.DOC_ID > 0
 order by a.VERSION_ID DESC
 
 
---Запрос по результату запроса
+--Р—Р°РїСЂРѕСЃ РїРѕ СЂРµР·СѓР»СЊС‚Р°С‚Сѓ Р·Р°РїСЂРѕСЃР°
 select c.DESIGNATIO, a.VER_CODE, a.BIRTHDAY, b.FULLNAME, a.VERSION_ID from RC a 
 join USERS b on (b.USER_ID=a.DESIGNERID) 
 join DOCLIST c on (c.DOC_ID=a.REVDOC_ID)
-where a.DOC_ID=(select top 1 DOC_ID from RC where FILENAME='ЖКЕБ.301413.6305 СБ.dwg' and DOC_ID>0)
+where a.DOC_ID=(select top 1 DOC_ID from RC where FILENAME='Р–РљР•Р‘.301413.6305 РЎР‘.dwg' and DOC_ID>0)
 order by a.VERSION_ID DESC
 
---Like ("_" - один любой знак, "%" - любое кол-во любых знаков)
-select top 1 DOC_ID from RC where FILENAME like '___Б.301413.6305 СБ.d%' and DOC_ID>0
+--Like ("_" - РѕРґРёРЅ Р»СЋР±РѕР№ Р·РЅР°Рє, "%" - Р»СЋР±РѕРµ РєРѕР»-РІРѕ Р»СЋР±С‹С… Р·РЅР°РєРѕРІ)
+select top 1 DOC_ID from RC where FILENAME like '___Р‘.301413.6305 РЎР‘.d%' and DOC_ID>0
 
---Получение части ключа
-select F_TABKEY, F_CATKEY from CTL000050_F4 where F_TEXT='Лист БТ-БШ-БД-ПН-НО-2 ГОСТ 19904-90/К270В ГОСТ 16523-97'
+--РџРѕР»СѓС‡РµРЅРёРµ С‡Р°СЃС‚Рё РєР»СЋС‡Р°
+select F_TABKEY, F_CATKEY from CTL000050_F4 where F_TEXT='Р›РёСЃС‚ Р‘Рў-Р‘РЁ-Р‘Р”-РџРќ-РќРћ-2 Р“РћРЎРў 19904-90/Рљ270Р’ Р“РћРЎРў 16523-97'
 
 
 
